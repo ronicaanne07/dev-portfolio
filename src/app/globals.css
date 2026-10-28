@@ -809,7 +809,7 @@ main,
 }
 .featured-image {
   position: relative;
-  grid-column: 1 / 8;
+  grid-column: 1 / 7;
   grid-row: 1 / -1;
   z-index: 1;
   display: grid;
@@ -829,18 +829,21 @@ main,
   color: var(--accent);
 }
 .featured-content {
-  grid-column: 6 / -1;
+  grid-column: 7 / -1;
   grid-row: 1 / -1;
   position: relative;
   z-index: 2;
   text-align: right;
+  padding-left: 1.25rem;
 }
 .featured.reverse .featured-image {
-  grid-column: 6 / -1;
+  grid-column: 7 / -1;
 }
 .featured.reverse .featured-content {
-  grid-column: 1 / 8;
+  grid-column: 1 / 7;
   text-align: left;
+  padding-left: 0;
+  padding-right: 1.25rem;
 }
 
 .featured-title {
@@ -850,8 +853,6 @@ main,
   color: var(--text-strong);
 }
 .featured-description {
-  padding: 1.5rem;
-  background: var(--bg-light);
   font-size: 0.95rem;
 }
 .featured-tags {
@@ -1192,6 +1193,32 @@ a.featured-image:hover .project-img {
 }
 .assistant-note a:hover {
   text-decoration: underline;
+}
+
+.assistant-mic {
+  width: 3.2rem;
+  border: 1px solid var(--bg-lighter);
+  border-radius: 0.5rem;
+  background: var(--bg);
+  color: var(--text-strong);
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.assistant-mic:hover {
+  border-color: var(--accent);
+}
+.assistant-mic.listening {
+  border-color: var(--accent);
+  background: var(--accent-tint);
+  animation: mic-pulse 1.2s ease-in-out infinite;
+}
+@keyframes mic-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(218, 123, 147, 0.5); }
+  50% { box-shadow: 0 0 0 8px rgba(218, 123, 147, 0); }
+}
+.assistant-voice {
+  margin-top: 0.9rem;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { FormEvent } from "react";
 import { assistant, profile } from "@/data/portfolio";
 import type { Intent } from "@/data/portfolio";
@@ -16,6 +16,22 @@ type Reply = {
 };
 
 type Message = { role: "user" | "assistant"; content: string };
+
+type SpeechRecognitionLike = {
+  lang: string;
+  interimResults: boolean;
+  continuous: boolean;
+  start: () => void;
+  stop: () => void;
+  onresult: ((e: { results: ArrayLike<ArrayLike<{ transcript: string }>> }) => void) | null;
+  onend: (() => void) | null;
+  onerror: ((e: { error: string }) => void) | null;
+};
+type SpeechRecognitionCtor = new () => SpeechRecognitionLike;
+type SpeechWindow = {
+  SpeechRecognition?: SpeechRecognitionCtor;
+  webkitSpeechRecognition?: SpeechRecognitionCtor;
+};
 
 // Button labels for the section the AI points to
 const LABELS: Record<string, string> = {
@@ -51,6 +67,13 @@ export default function Assistant() {
   const [open, setOpen] = useState(false); // false = starts collapsed
   const [loading, setLoading] = useState(false);
   const history = useRef<Message[]>([]); // conversation sent to the AI for context
+
+  const [voiceOut, setVoiceOut] = useState(false); // read answers aloud
+  const [listening, setListening] = useState(false);
+  const [micSupported, setMicSupported] = useState(false);
+  const [ttsSupported, setTtsSupported] = useState(false);
+  const [micError, setMicError] = useState("");
+  const recognition = useRef<SpeechRecognitionLike | null>(null);
 
   const showIntent = (intent: Intent) =>
     setReply({
@@ -97,6 +120,70 @@ export default function Assistant() {
     } finally {
       setLoading(false);
     }
+  }
+
+  // Check what the browser supports (done in an effect so server and browser output match)
+  useEffect(() => {
+    const w = window as unknown as SpeechWindow;
+    setMicSupported(Boolean(w.SpeechRecognition ?? w.webkitSpeechRecognition));
+    setTtsSupported("speechSynthesis" in window);
+    return () => {
+      window.speechSynthesis?.cancel();
+      recognition.current?.stop();
+    };
+  }, []);
+
+  // Read the answer aloud whenever a new one appears and voice replies are on
+  useEffect(() => {
+    if (voiceOut && reply) speak(reply.answer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [reply]);
+
+  function speak(text: string) {
+    if (!("speechSynthesis" in window)) return;
+    window.speechSynthesis.cancel(); // stop anything already playing
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = "en-US";
+    u.rate = 1;
+    window.speechSynthesis.speak(u);
+  }
+
+  function toggleVoice() {
+    if (voiceOut) window.speechSynthesis?.cancel();
+    setVoiceOut(!voiceOut);
+  }
+
+  function toggleMic() {
+    if (listening) {
+      recognition.current?.stop();
+      return;
+    }
+    const w = window as unknown as SpeechWindow;
+    const Ctor = w.SpeechRecognition ?? w.webkitSpeechRecognition;
+    if (!Ctor) return;
+
+    window.speechSynthesis?.cancel(); // so it doesn't hear its own voice
+    setMicError("");
+
+    const rec = new Ctor();
+    rec.lang = "en-US"; // try "en-PH" for a Philippine English accent
+    rec.interimResults = false;
+    rec.continuous = false;
+    rec.onresult = (e) => {
+      const text = e.results[0][0].transcript.trim();
+      if (text) ask(text);
+    };
+    rec.onerror = (e) =>
+      setMicError(
+        e.error === "not-allowed"
+          ? "Microphone access is blocked. Allow it in your browser's site settings."
+          : "Couldn't hear that. Please try again."
+      );
+    rec.onend = () => setListening(false);
+
+    recognition.current = rec;
+    setListening(true);
+    rec.start();
   }
 
   const onSubmit = (e: FormEvent) => {
@@ -186,6 +273,18 @@ export default function Assistant() {
                   autoComplete="off"
                   disabled={loading}
                 />
+                {micSupported && (
+                  <button
+                    type="button"
+                    className={`assistant-mic${listening ? " listening" : ""}`}
+                    onClick={toggleMic}
+                    aria-pressed={listening}
+                    aria-label={listening ? "Stop listening" : "Speak your question"}
+                    disabled={loading}
+                  >
+                    🎤
+                  </button>
+                )}
                 <button
                   type="submit"
                   className="assistant-send"
@@ -195,7 +294,19 @@ export default function Assistant() {
                   →
                 </button>
               </form>
+              {micError && (
+                <p className="assistant-note" role="alert">
+                  {micError}
+                </p>
+              )}
 
+              {ttsSupported && (
+                <p className="assistant-voice">
+                  <button type="button" className="chip" aria-pressed={voiceOut} onClick={toggleVoice}>
+                    {voiceOut ? "🔊 Voice replies: on" : "🔈 Voice replies: off"}
+                  </button>
+                </p>
+              )}
               <p className="assistant-note">
                 {assistant.note} <a href={`mailto:${profile.email}`}>email Ronica instead</a>.
               </p>
