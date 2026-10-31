@@ -222,6 +222,10 @@ export type Project = {
   tags: string[];
   github?: string;
   live?: string;
+  image?: string;
+  imageAlt?: string;
+  tall?: boolean;
+  panSeconds?: number;
 };
 
 
@@ -337,10 +341,10 @@ export type Certificate = {
 // Replace these placeholders with your real certificates
 export const certificates: Certificate[] = [
   {
-    title: "Certificate title goes here",
-    issuer: "Issuing organisation",
-    date: "2025",
-    url: "https://example.com/verify",
+    title: "Hubspot Reporting Certified",
+    issuer: "Hubspot Academy",
+    date: "October 2026",
+    url: "https://app-na2.hubspot.com/academy/achievements/lh6ft8p5/en/1/ronica-matawaran/hubspot-reporting-certified",
   },
 ];
 

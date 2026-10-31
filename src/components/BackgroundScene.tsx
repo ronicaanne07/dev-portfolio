@@ -169,8 +169,6 @@ function Geometry({ shape, size }: { shape: Shape; size: number }) {
       return <icosahedronGeometry args={[size, 0]} />;
     case "tetrahedron":
       return <tetrahedronGeometry args={[size, 0]} />;
-    case "knot":
-      return <torusKnotGeometry args={[size * 0.8, size * 0.25, 96, 16]} />;
   }
 }
 

@@ -1,4 +1,4 @@
-import { profile, about, skillGroups, education, experience, projects } from "@/data/portfolio";
+import { profile, about, skillGroups, education, experience, projects, certificates } from "@/data/portfolio";
 
 export function buildSystemPrompt(): string {
   const jobs = experience

@@ -1,7 +1,6 @@
 import {
   about,
   education,
-  featuredSkills,
   profile,
   skillGroups,
 } from "@/data/portfolio";
