@@ -284,8 +284,8 @@ export const projects: Project[] = [
   {
     title: "Eternal Homes Portal v1",
     description:
-      "Built a PHP client-facing portal that allows to manage listings, stock request form, submit expression of interest which is connected to the client's Hubspot sales pipeline. ",
-    tags: ["PHP", "Laravel", "MySQL", "HTML5", "CSS3", "REST APIs", "Hubspot API"],
+      "Built a client-facing portal that allows to manage listings, stock request form, submit expression of interest which is connected to the client's Hubspot Pipeline. ",
+    tags: ["PHP", "Wordpress", "MySQL", "Gravity Form", "PDF Generation", "Hubspot API"],
   },
   {
     title: "Property Investwise Website",
@@ -324,10 +324,31 @@ export const projects: Project[] = [
   },
 ];
 
+export type Certificate = {
+  title: string;
+  issuer: string;
+  date: string; // e.g. "Mar 2025"
+  credentialId?: string;
+  url?: string; // link where anyone can verify the credential
+  image?: string; // file inside /public, e.g. "/certificates/hubspot.jpg"
+  imageAlt?: string;
+};
+
+// Replace these placeholders with your real certificates
+export const certificates: Certificate[] = [
+  {
+    title: "Certificate title goes here",
+    issuer: "Issuing organisation",
+    date: "2025",
+    url: "https://example.com/verify",
+  },
+];
+
 export const sections = [
   { id: "about", label: "About" },
   { id: "experience", label: "Experience" },
   { id: "work", label: "Work" },
+  { id: "certificates", label: "Certificates" },
   { id: "contact", label: "Contact" },
 ] as const;
 
@@ -368,6 +389,14 @@ export const assistant = {
         "Ronica is a senior full-stack developer and CRM & automations architect with 12+ years of experience across web development, CRM implementation, systems integration and workflow automation.",
       target: "about",
       cta: "Read the full bio",
+    },
+    {
+      id: "certificates",
+      chip: "What certificates does she have?",
+      keywords: ["certificate", "certification", "certified", "credential", "training", "course"],
+      answer: "Her certificates are listed on this page, each with a link to verify it.",
+      target: "certificates",
+      cta: "See certificates",
     },
     {
       id: "built",

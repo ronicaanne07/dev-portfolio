@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
+import { useTheme } from "@/lib/theme";
 
 // A stippled, grainy look: each pixel randomly picks between the lit and
 // shaded color based on how much it faces the light, which gives a speckled
@@ -56,6 +57,20 @@ type Shape =
   | "octahedron"
   | "icosahedron"
   | "tetrahedron";
+
+// [lit colour, shaded colour, bias] for each shape colour, per theme
+const PALETTES = {
+  dark: {
+    pink: ["#da7b93", "#2e151b", 0],
+    teal: ["#8dbcbc", "#1c3334", 0],
+    dark: ["#376e6f", "#1c3334", -0.25],
+  },
+  light: {
+    pink: ["#e8d3cc", "#a97a72", 0],
+    teal: ["#d6dfd9", "#7d958e", 0],
+    dark: ["#b7c2bf", "#5f7a74", -0.2],
+  },
+} as const;
 
 type Item = {
   shape: Shape;
@@ -184,6 +199,18 @@ function Shapes({ spin, maxScroll }: { spin: number; maxScroll: number }) {
   );
 
   useEffect(() => () => Object.values(mats).forEach((m) => m.dispose()), [mats]);
+
+  const theme = useTheme();
+
+  // Recolour the shapes when the theme changes
+  useEffect(() => {
+    (Object.keys(mats) as Kind[]).forEach((k) => {
+      const [color, shade, bias] = PALETTES[theme][k];
+      mats[k].uniforms.uColor.value.set(color);
+      mats[k].uniforms.uShade.value.set(shade);
+      mats[k].uniforms.uBias.value = bias;
+    });
+  }, [theme, mats]);
 
   useFrame((state, dt) => {
     const t = state.clock.elapsedTime;

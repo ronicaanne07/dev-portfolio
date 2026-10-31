@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { profile, sections } from "@/data/portfolio";
+import ThemeToggle from "./ThemeToggle";
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
@@ -84,6 +85,9 @@ export default function Header() {
                 </a>
               </li>
             )}
+            <li>
+              <ThemeToggle />
+            </li>
           </ol>
         </nav>
 
@@ -137,6 +141,7 @@ export default function Header() {
             Resume
           </a>
         )}
+        <ThemeToggle />
       </aside>
     </>
   );

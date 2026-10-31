@@ -8,13 +8,21 @@ export const metadata: Metadata = {
   description: profile.siteDescription,
 };
 
+const themeScript = `(function(){try{var t=localStorage.getItem("theme");if(t!=="light"&&t!=="dark"){t="dark"}document.documentElement.dataset.theme=t}catch(e){}})();`;
+
 export const viewport: Viewport = {
-  themeColor: "#2f4454",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f8ede6" },
+    { media: "(prefers-color-scheme: dark)", color: "#2f4454" },
+  ],
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       <body>{children}</body>
     </html>
   );

@@ -6,6 +6,9 @@ export function buildSystemPrompt(): string {
     .join("\n");
   const skills = skillGroups.map((g) => `- ${g.name}: ${g.items.join(", ")}`).join("\n");
   const work = projects.map((p) => `- ${p.title}: ${p.description}`).join("\n");
+  const certs = certificates
+  .map((c) => `- ${c.title}, ${c.issuer} (${c.date})`)
+  .join("\n");
 
   return `You are the assistant on ${profile.name}'s portfolio website. Answer visitors' questions about her in the third person, using ONLY the facts below.
 
@@ -35,5 +38,8 @@ Experience:
 ${jobs}
 
 Projects:
-${work}`;
+${work}
+
+Certificates:
+${certs || "None listed"}`;
 }

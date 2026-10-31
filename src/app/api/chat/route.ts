@@ -3,7 +3,7 @@ import { buildSystemPrompt } from "@/lib/knowledge";
 
 const MODEL = process.env.GROQ_MODEL ?? "llama-3.3-70b-versatile";
 const SYSTEM = buildSystemPrompt();
-const SECTIONS = ["about", "skills", "experience", "work", "contact"];
+const SECTIONS = ["about", "skills", "experience", "work", "certificates", "contact"];
 
 // Simple per-visitor limit: 8 questions a minute (resets if the server restarts)
 const hits = new Map<string, number[]>();

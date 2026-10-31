@@ -40,6 +40,7 @@ const LABELS: Record<string, string> = {
   experience: "View experience",
   work: "See projects",
   contact: "Contact Ronica",
+  certificates: "See certificates",
 };
 
 // Scores each intent by how many of its keywords appear in the question.
