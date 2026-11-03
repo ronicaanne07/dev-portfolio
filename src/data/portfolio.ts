@@ -13,7 +13,7 @@ export const profile = {
   birthday: "September 7, 1994",
   location: "Bataan, Philippines",
   // Put a PDF in /public (e.g. /resume.pdf) and set the path here to show a Resume button.
-  resumeUrl: "",
+  resumeUrl: "https://drive.google.com/file/d/18JFjgWbfDUg31RpoW_r66nPNY-XDcCi8/view?usp=drive_link",
 };
 
 
@@ -345,6 +345,8 @@ export const certificates: Certificate[] = [
     issuer: "Hubspot Academy",
     date: "October 2026",
     url: "https://app-na2.hubspot.com/academy/achievements/lh6ft8p5/en/1/ronica-matawaran/hubspot-reporting-certified",
+    image: "/certifications/1939b666607b43bd913b8b3c4853ff95.png",
+    imageAlt: "Hubspot Reporting Certified - Ronica",
   },
 ];
 
