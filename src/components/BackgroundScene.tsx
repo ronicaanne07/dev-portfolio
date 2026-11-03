@@ -61,14 +61,14 @@ type Shape =
 // [lit colour, shaded colour, bias] for each shape colour, per theme
 const PALETTES = {
   dark: {
-    pink: ["#da7b93", "#2e151b", 0],
-    teal: ["#8dbcbc", "#1c3334", 0],
-    dark: ["#376e6f", "#1c3334", -0.25],
+    pink: ["#7c5cff", "#150a4a", 0], // now indigo
+    teal: ["#b6f3c0", "#16301f", 0], // now mint
+    dark: ["#603ff8", "#0a0524", -0.25], // deep indigo
   },
   light: {
-    pink: ["#e8d3cc", "#a97a72", 0],
-    teal: ["#d6dfd9", "#7d958e", 0],
-    dark: ["#b7c2bf", "#5f7a74", -0.2],
+    pink: ["#f2a9b6", "#b94d68", 0], // crimson
+    teal: ["#b4cdf3", "#4560a3", 0], // light blue
+    dark: ["#6b82bf", "#1b2c55", -0.2], // navy
   },
 } as const;
 

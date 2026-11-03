@@ -2,41 +2,44 @@
   color-scheme: dark;
 
   /* Palette */
-  --slate: #19262f;
-  --maroon: #2e151b;
-  --pink: #da7b93;
-  --teal: #376e6f;
-  --forest: #1c3334;
+  --onyx: #03010c;
+  --indigo: #603ff8;
+  --tropical: #b6f3c0;
 
-  /* Light Palette*/
-  --selection: rgba(218, 123, 147, 0.4);
-  --header-bg: rgba(47, 68, 84, 0.85);
-  --overlay: rgba(14, 26, 27, 0.65);
-  --glow-pink: rgba(218, 123, 147, 0.22);
-  --glow-teal: rgba(55, 110, 111, 0.5);
-  --grid-line: rgba(218, 123, 147, 0.08);
+  /* Surfaces */
+  --bg: var(--onyx);
+  --bg-light: #0c0724; /* cards and panels: onyx with a touch of indigo */
+  --bg-lighter: #1b1149; /* borders and dividers */
+  --shadow: rgba(0, 0, 0, 0.6);
+
+  /* Text */
+  --text: #cbc8e4;
+  --text-strong: #f2f0ff;
+  --text-dim: #9a96b9;
+
+  /* Accents */
+  --accent: var(--tropical); /* links, buttons, highlights */
+  --accent-2: #a895fb; /* lighter indigo, readable on black */
+  --accent-tint: rgba(182, 243, 192, 0.12);
+  --teal: var(--indigo); /* name kept: used by the send button and image tint */
+
+  /* Values that change between themes */
+  --selection: rgba(96, 63, 248, 0.5);
+  --header-bg: rgba(3, 1, 12, 0.85);
+  --overlay: rgba(0, 0, 0, 0.65);
+  --glow-pink: rgba(96, 63, 248, 0.35); /* name kept: now an indigo glow */
+  --glow-teal: rgba(182, 243, 192, 0.08); /* name kept: now a faint mint glow */
+  --grid-line: rgba(96, 63, 248, 0.16);
   --grain-opacity: 0.16;
-  --canvas-opacity: 0.4;
-  --canvas-opacity-wide: 0.75;
+  --canvas-opacity: 0.5;
+  --canvas-opacity-wide: 0.85;
 
-  --bg: var(--slate);
-  --bg-light: color-mix(in srgb, var(--forest) 55%, var(--slate));
-  --bg-lighter: color-mix(in srgb, var(--teal) 32%, var(--slate));
-  --shadow: rgba(10, 18, 20, 0.6);
-  /* Off-white with a hint of pink, used for text */
-  --paper: color-mix(in srgb, var(--pink) 8%, white);
-  --text: color-mix(in srgb, var(--paper) 78%, white);
-  --text-strong: var(--paper);
-  --text-dim: color-mix(in srgb, var(--paper) 62%, var(--slate));
-  /* Lightened so small pink/teal text stays readable on the slate background */
-  --accent: color-mix(in srgb, var(--pink) 72%, white);
-  --accent-2: color-mix(in srgb, var(--teal) 55%, white);
-  --accent-tint: rgba(218, 123, 147, 0.16);
+  /* Fonts and sizes (unchanged) */
   --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, sans-serif;
   --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono",
     monospace;
-  --header-h: 150px;
+  --header-h: 100px;
   --header-h-small: 70px;
   --pad: 1.5rem;
 }
@@ -44,35 +47,38 @@
   color-scheme: light;
 
   /* Swatches from the palette image */
-  --cream: #f8ede6;
-  --rose: #d6bdb5;
-  --mint: #d1dbd4;
-  --sage: #ced5ce;
-  --sage-gray: #b7c2bf;
+  --seal: #e3effc;
+  --navy: #1b2c55;
+  --crimson: #db7688;
 
-  --bg: var(--cream);
-  --bg-light: #fdf8f4; /* cards and panels: cream, lightened */
-  --bg-lighter: var(--sage); /* borders and dividers */
-  --shadow: rgba(74, 102, 95, 0.18);
+  --bg: var(--seal);
+  --bg-light: #f4f9fe; /* cards and panels: seal blue, lightened */
+  --bg-lighter: #c7d4e5; /* borders and dividers */
+  --shadow: rgba(27, 44, 85, 0.2);
 
-  /* Deeper shades derived from the swatches so text stays readable */
-  --text: #3f4d4a;
-  --text-strong: #1f2927;
-  --text-dim: #5b6965;
-  --accent: #8c4f48; /* deep dusty rose */
-  --accent-2: #4a665f; /* deep sage */
-  --accent-tint: rgba(140, 79, 72, 0.1);
-  --teal: #55736f; /* assistant send button and image tint */
+  /* Text and accents, deepened from the swatches so they stay readable */
+  --text: #47577a;
+  --text-strong: var(--navy);
+  --text-dim: #576687;
+  --accent: #a93450; /* deep crimson for links and buttons */
+  --accent-2: #2f4a8a; /* mid navy blue */
+  --accent-tint: rgba(169, 52, 80, 0.1);
+  --teal: var(--navy); /* name kept: used by the send button and image tint */
 
-  --selection: rgba(214, 189, 181, 0.65);
-  --header-bg: rgba(248, 237, 230, 0.9);
-  --overlay: rgba(31, 41, 39, 0.4);
-  --glow-pink: rgba(214, 189, 181, 0.55);
-  --glow-teal: rgba(183, 194, 191, 0.5);
-  --grid-line: rgba(74, 102, 95, 0.08);
+  --selection: rgba(219, 118, 136, 0.35);
+  --header-bg: rgba(227, 239, 252, 0.9);
+  --overlay: rgba(27, 44, 85, 0.45);
+  --glow-pink: rgba(219, 118, 136, 0.28); /* name kept: crimson glow */
+  --glow-teal: rgba(99, 140, 220, 0.22); /* name kept: blue glow */
+  --grid-line: rgba(27, 44, 85, 0.07);
   --grain-opacity: 0.08;
   --canvas-opacity: 0.6;
   --canvas-opacity-wide: 0.85;
+}
+
+/* Navy would darken screenshots too much, so soften the tint in light mode */
+:root[data-theme="light"] .featured-image:not(.tall)::after {
+  opacity: 0.3;
 }
 
 
@@ -1262,8 +1268,13 @@ a.featured-image:hover .project-img {
   animation: mic-pulse 1.2s ease-in-out infinite;
 }
 @keyframes mic-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(218, 123, 147, 0.5); }
-  50% { box-shadow: 0 0 0 8px rgba(218, 123, 147, 0); }
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 50%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 0 8px color-mix(in srgb, var(--accent) 0%, transparent);
+  }
 }
 .assistant-voice {
   margin-top: 0.9rem;
